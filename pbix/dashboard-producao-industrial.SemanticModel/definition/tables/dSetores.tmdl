@@ -1,0 +1,42 @@
+table dSetores
+	lineageTag: b2af7431-696a-402f-aed0-d36d1d7c006a
+
+	column Setor
+		dataType: string
+		lineageTag: 2fc3bfde-9abd-4a3b-a970-fb82f5dcbbe0
+		summarizeBy: none
+		sourceColumn: Setor
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_Setor
+		dataType: int64
+		formatString: 0
+		lineageTag: 86e21099-232f-407e-a22b-c59f4161fb75
+		summarizeBy: none
+		sourceColumn: id_Setor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Imagem
+		dataType: string
+		lineageTag: ff2431fd-4c47-462b-9318-7896c3e4ceb0
+		summarizeBy: none
+		sourceColumn: Imagem
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dSetores = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(Caminho_Arquivos&"dSetores.csv"),[Delimiter=",", Columns=3, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Setor", type text}, {"id_Setor", Int64.Type}, {"Imagem", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

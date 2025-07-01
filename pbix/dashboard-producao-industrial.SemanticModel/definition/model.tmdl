@@ -1,9 +1,24 @@
 model Model
 	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
 
 annotation PBI_ProTooling = ["DevMode"]
 
 annotation PBIDesktopVersion = 2.144.1155.0 (25.06)+46435b07013d2a234d7fd007083a9e70b8e79f1c
+
+annotation PBI_QueryOrder = ["dCalendario","dSetores","fProducaoIndustrial","Caminho_Arquivos"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table dCalendario
+ref table DateTableTemplate_c7038141-e7ed-42e2-99e1-3743fdc1bfba
+ref table LocalDateTable_30f17da0-e5c3-410e-afd0-2d4ef2aeed5c
+ref table dSetores
+ref table fProducaoIndustrial
 
 ref cultureInfo pt-BR
 

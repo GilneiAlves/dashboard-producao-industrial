@@ -1,0 +1,73 @@
+table fProducaoIndustrial
+	lineageTag: 02a8cf34-fbef-43d7-9304-de9a4837caff
+
+	column id_Setor
+		dataType: int64
+		formatString: 0
+		lineageTag: 51b594a3-5771-4194-98b7-cfac0f295543
+		summarizeBy: none
+		sourceColumn: id_Setor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 75a2a529-a99b-45fc-9d3a-eb9a65b90735
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Matéria-Prima (toneladas)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 867b38d9-367a-4aa2-80ea-3fc720695571
+		summarizeBy: sum
+		sourceColumn: Matéria-Prima (toneladas)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Volume de Produção (toneladas)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 13536aac-92d7-40f1-89f2-3b9d11259d46
+		summarizeBy: sum
+		sourceColumn: Volume de Produção (toneladas)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Número de Trabalhadores'
+		dataType: int64
+		formatString: 0
+		lineageTag: 79b75604-1c1d-4a5c-b6e6-7417eed497fa
+		summarizeBy: sum
+		sourceColumn: Número de Trabalhadores
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Valor das Exportações (em dólares)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ffd040d-148c-44c0-ae0a-f57bd1ef3ec6
+		summarizeBy: sum
+		sourceColumn: Valor das Exportações (em dólares)
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fProducaoIndustrial = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(Caminho_Arquivos&"fProducaoIndustrial.csv"),[Delimiter=",", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"id_Setor", Int64.Type}, {"Data", type date}, {"Matéria-Prima (toneladas)", Int64.Type}, {"Volume de Produção (toneladas)", Int64.Type}, {"Número de Trabalhadores", Int64.Type}, {"Valor das Exportações (em dólares)", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

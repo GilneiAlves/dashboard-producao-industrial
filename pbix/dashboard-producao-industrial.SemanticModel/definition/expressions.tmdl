@@ -1,0 +1,9 @@
+/// Caminho para os arquivos.
+/// Modifique aqui a localização dos arquivos .csv no seu computador.
+expression Caminho_Arquivos = "C:\GitHub\dashboard-producao-industrial\data\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 449766b5-8e76-4432-86ed-0363f5889781
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Text
+

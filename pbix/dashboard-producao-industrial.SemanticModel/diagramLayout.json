@@ -1,0 +1,64 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 554,
+            "y": 39
+          },
+          "nodeIndex": "dCalendario",
+          "nodeLineageTag": "7899075d-46c8-4c43-94d7-f8d34a0e712e",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 176
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 48
+          },
+          "nodeIndex": "dSetores",
+          "nodeLineageTag": "b2af7431-696a-402f-aed0-d36d1d7c006a",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 152
+        },
+        {
+          "location": {
+            "x": 294,
+            "y": 329
+          },
+          "nodeIndex": "fProducaoIndustrial",
+          "nodeLineageTag": "02a8cf34-fbef-43d7-9304-de9a4837caff",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 224
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}
