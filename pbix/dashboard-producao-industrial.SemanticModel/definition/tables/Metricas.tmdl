@@ -1,0 +1,486 @@
+table Metricas
+	lineageTag: a36b6f71-fbc6-425d-9933-fd158cb962ce
+
+	measure 'Valores gráfico linha' = ```
+			
+			VAR vExp = 
+			CALCULATE(
+			    SELECTEDVALUE('Segmentacao'[Segmentador]) = "Exportação"
+			)
+			VAR vMateria =
+			CALCULATE(
+			    SELECTEDVALUE('Segmentacao'[Segmentador]) = "Matéria-Prima"
+			)
+			VAR vProducao = 
+			CALCULATE(
+			    SELECTEDVALUE('Segmentacao'[Segmentador]) = "Produção"
+			)
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    vExp=TRUE(),[Exportação em dólares],
+			    vMateria=TRUE(),[Matéria-Prima (toneladas)],
+			    vProducao=TRUE(),[Produção em Ton],
+			    BLANK()
+			)
+			```
+		formatString: 0
+		displayFolder: Linha
+		lineageTag: b8d745a1-c643-4e15-80af-bd9777c08822
+
+	measure Agroindústria = ```
+			
+			CALCULATE(  
+			    [Valores gráfico linha],
+			    dSetores[id_Setor] = 1
+			)
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Linha
+		lineageTag: 6ce006ec-613d-41d5-b5ef-d151d815d45b
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure Automotivo = ```
+			
+			CALCULATE(  
+			    [Valores gráfico linha],
+			    dSetores[id_Setor] = 2
+			)
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Linha
+		lineageTag: b430dedc-0618-4fe6-a0f1-cdf3a52bf410
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Têxtil e Vestuário' = ```
+			
+			CALCULATE(  
+			    [Valores gráfico linha],
+			    dSetores[id_Setor] = 3
+			)
+			```
+		formatString: #,0
+		displayFolder: Linha
+		lineageTag: 4acdb40d-b5d9-435d-91b5-3704d91d69f7
+
+	measure Outros = ```
+			
+			CALCULATE(  
+			    [Valores gráfico linha],
+			    dSetores[id_Setor] = 4
+			)
+			```
+		formatString: #,0
+		displayFolder: Linha
+		lineageTag: da1183ee-2c73-4029-bdf5-afeb5f2243f0
+
+	/// 
+	/// 
+	measure 'Setor selecionado Exportações' =
+			
+			VAR vSetor = SELECTEDVALUE(Tabela_aux[Setor])
+			RETURN
+			CALCULATE(
+			    [Valores gráfico linha],
+			    dSetores[Setor] = vSetor
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Linha
+		lineageTag: 2515d1f2-f382-4ebe-ba63-e97a749341d8
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	/// 
+	/// 
+	measure Rótulo =
+			
+			VAR VDataMax =
+			    CALCULATE ( MAX ( fProducaoIndustrial[Data] ), ALL( dCalendario ) )
+			VAR VAno =
+			    YEAR ( VDataMax )
+			VAR VMes =
+			    MONTH ( VDataMax )
+			VAR VAnoRotulo =
+			    SWITCH (
+			        TRUE (),
+			        MAX (  dCalendario[Ano] ) = VAno, SELECTEDVALUE ( Tabela_aux[Setor] ),
+			        BLANK ()
+			    )
+			VAR vMesRotulo =
+			    SWITCH (
+			        TRUE (),
+			        MAX ( dCalendario[Mes_Num] ) = VMes, SELECTEDVALUE ( Tabela_aux[Setor] ),
+			        BLANK ()
+			    )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISINSCOPE ( dCalendario[Ano] ), VAnoRotulo,
+			        ISINSCOPE ( dCalendario[Nome_Mes] ), vMesRotulo,
+			        BLANK ()
+			    )
+		displayFolder: Linha
+		lineageTag: 797c53f8-3627-4324-b2fd-29e5ce2f15c9
+
+	/// 
+	/// 
+	measure 'Rótulo Média Ano Exportações' = ```
+			
+			
+			VAR vSetor = SELECTEDVALUE(Tabela_aux[Setor])
+			VAR VDataMax =
+			    CALCULATE ( MAX ( fProducaoIndustrial[Data] ), ALLSELECTED( dCalendario ))
+			VAR VAno =
+			    YEAR ( VDataMax )
+			VAR VMes =
+			    MONTH ( VDataMax )
+			VAR vMediaAno = 
+			    CALCULATE(
+			        AVERAGEX(
+			            FILTER(ALLSELECTED(dCalendario), YEAR(dCalendario[Data]) = VAno),
+			            [Valores gráfico linha]
+			        ),
+			        ALLSELECTED(dCalendario),
+			        dSetores[Setor] = vSetor
+			    )
+			VAR vMediaMes = 
+			    CALCULATE(
+			        AVERAGEX(
+			            FILTER(ALLSELECTED(dCalendario), YEAR(dCalendario[Data]) = VAno && MONTH(dCalendario[Data]) = VMes),
+			            [Valores gráfico linha]
+			        ),
+			        ALLSELECTED(dCalendario),
+			        dSetores[Setor] = vSetor
+			    )
+			RETURN
+			 SWITCH (
+			        TRUE (),
+			        ISINSCOPE ( dCalendario[Ano] ), vMediaAno ,
+			        ISINSCOPE ( dCalendario[Nome_Mes] ), vMediaMes ,
+			        BLANK ()
+			    )
+			```
+		displayFolder: Linha
+		lineageTag: a8f0f094-b36a-4cdf-8279-60539acb5e2b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// 
+	measure 'Rótulo linha Exportações' = ```
+			
+			VAR Valor = [Rótulo Média Ano Exportações]
+			VAR vSetorSelecionado = SELECTEDVALUE(Segmentacao[Segmentador])
+			VAR ValorFormatado =
+			    IF(
+			        Valor >= 1000000000,
+			        FORMAT(Valor / 1000000000, "#,##0.0B"),
+			        IF(
+			            Valor >= 1000000,
+			            FORMAT(Valor / 1000000, "#,##0.0M"),
+			            FORMAT(Valor / 1000, "#,##0.0K")
+			        )
+			    )
+			VAR Unidade =
+			    IF(
+			        vSetorSelecionado = "Exportação", "$", " Ton"
+			    )
+			RETURN
+			    IF(
+			        [Rótulo] <> BLANK(),
+			        IF(
+			            ValorFormatado <> BLANK(),
+			            SWITCH(
+			                TRUE(),
+			                ISINSCOPE(dCalendario[Ano]), IF(Unidade = "$", Unidade & ValorFormatado, ValorFormatado & Unidade),
+			                ISINSCOPE(dCalendario[Nome_Mes]), IF(Unidade = "$", Unidade & ValorFormatado, ValorFormatado & Unidade),
+			                BLANK()
+			            )
+			        ),
+			        BLANK()
+			    )
+			
+			```
+		displayFolder: Linha
+		lineageTag: c672963f-9908-4d70-9977-0b232322a11e
+
+	measure 'Melhor Ano Exp' = ```
+			
+			VAR vMelhorAno = 
+			RANKX(
+			    ALL(dCalendario[Ano]),
+			    [Exportação em dólares]
+			)
+			RETURN
+			"Melhor ano: "&
+			CALCULATE(
+			 SELECTEDVALUE(dCalendario[Ano]),
+			 TOPN(1,ALLSELECTED(dCalendario[Ano]),
+			  [Exportação em dólares]
+			 )
+			)
+			```
+		displayFolder: Gerais_Basicas
+		lineageTag: da69fd1d-51a4-4c4b-a2f7-550433e58ec3
+
+	measure 'Produção em Ton' =
+			
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Volume de Produção (toneladas)])
+			)
+		formatString: #,0
+		displayFolder: Gerais_Basicas
+		lineageTag: e14d9e63-e179-4780-b1cf-00d46858ab71
+
+	measure Trabalhadores =
+			
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Número de Trabalhadores])
+			)
+		formatString: #,0
+		displayFolder: Gerais_Basicas
+		lineageTag: 7d5bdab7-2393-48d6-bd21-a550ba0f3ef7
+
+	measure 'Matéria-Prima (toneladas)' =
+			
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Matéria-Prima (toneladas)]
+			))
+		formatString: #,0
+		displayFolder: Gerais_Basicas
+		lineageTag: edd83de0-70b4-4c67-964f-5117ddd894a1
+
+	measure 'Melhor Ano Trab' = ```
+			
+			VAR vMelhorAno = 
+			RANKX(
+			    ALL(dCalendario[Ano]),
+			    [Trabalhadores]
+			)
+			RETURN
+			"Melhor ano: "&
+			CALCULATE(
+			 SELECTEDVALUE(dCalendario[Ano]),
+			 TOPN(1,ALLSELECTED(dCalendario[Ano]),
+			 [Trabalhadores]
+			 )
+			)
+			```
+		displayFolder: Gerais_Basicas
+		lineageTag: af2de71e-2ce4-4acb-958e-cc8cc03c02c2
+
+	measure 'Melhor Ano materiaP' = ```
+			
+			VAR vMelhorAno = 
+			RANKX(
+			    ALL(dCalendario[Ano]),
+			    [Matéria-Prima (toneladas)]
+			)
+			RETURN
+			"Melhor ano: "&
+			CALCULATE(
+			 SELECTEDVALUE(dCalendario[Ano]),
+			 TOPN(1,ALLSELECTED(dCalendario[Ano]),
+			 [Matéria-Prima (toneladas)]
+			 )
+			)
+			```
+		displayFolder: Gerais_Basicas
+		lineageTag: 7cd64d7a-9dc6-450a-ab15-ec79f1db816a
+
+	measure 'Exportação em dólares' = ```
+			
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Valor das Exportações (em dólares)])
+			)
+			
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Gerais_Basicas
+		lineageTag: 117bb025-45a5-4474-9f19-96e91e3f7b0f
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Título Dinâmico' =
+			
+			VAR vSetorSelecionado = SELECTEDVALUE(Segmentacao[Segmentador])
+			VAR vExportacao =
+			"Análise Temporal: Valor Médio de Exportações em dólares ao Longo dos Anos"
+			VAR vProducao =
+			"Análise Temporal: Média de Volume Produzido em Toneladas ao Longo dos Anos"
+			VAR vMateriaPrima =
+			"Análise Temporal: Média de Matéria-Prima Utilizada em Toneladas ao Longo dos Anos"
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    vSetorSelecionado = "Exportação", vExportacao,
+			    vSetorSelecionado = "Matéria-Prima", vMateriaPrima,
+			    vSetorSelecionado = "Produção", vProducao,BLANK()
+			)
+		displayFolder: Formatação
+		lineageTag: a0ee2095-f20f-45ee-a1d6-49ae79ba9c92
+
+	measure 'Exportação Vs ano anterior' = ```
+			
+			VAR vTotalAtual = 
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Valor das Exportações (em dólares)])
+			)
+			VAR vTotalAnoAnterior = 
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Valor das Exportações (em dólares)]),
+			    SAMEPERIODLASTYEAR('dCalendario'[Data])
+			)
+			VAR vResult = 
+			DIVIDE(
+			    vTotalAtual - vTotalAnoAnterior,vTotalAtual
+			)
+			RETURN
+			SWITCH(True(),
+			    vResult>0,
+			    CONCATENATE(
+			        "Vs  Ano anterior: " & FORMAT(vResult,"PERCENT"),"⬆️"),
+			    vResult<0,
+			    CONCATENATE(
+			        "Vs  Ano anterior: " & FORMAT(vResult,"PERCENT"),"⬇️")
+			)
+			
+			```
+		displayFolder: Formatação
+		lineageTag: d0d8061e-2aa8-4545-be85-33586a167131
+
+	measure 'Cor Ano Exportação' = ```
+			
+			VAR vTotalAtual = 
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Valor das Exportações (em dólares)])
+			)
+			VAR vTotalAnoAnterior = 
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Valor das Exportações (em dólares)]),
+			    SAMEPERIODLASTYEAR('dCalendario'[Data])
+			)
+			VAR vResult = 
+			DIVIDE(
+			    vTotalAtual - vTotalAnoAnterior,vTotalAtual
+			)
+			RETURN
+			IF(vResult<0,"#ee1515","#9BC3DC")
+			```
+		displayFolder: Formatação
+		lineageTag: a5d369a6-fa8b-4bb3-b6eb-64825a99b81a
+
+	measure 'Matéria-Prima Vs ano anterior' = ```
+			
+			VAR vTotalAtual = 
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Matéria-Prima (toneladas)])
+			)
+			VAR vTotalAnoAnterior = 
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Matéria-Prima (toneladas)]),
+			    SAMEPERIODLASTYEAR('dCalendario'[Data])
+			)
+			VAR vResult = 
+			DIVIDE(
+			    vTotalAtual - vTotalAnoAnterior,vTotalAtual
+			)
+			RETURN
+			SWITCH(True(),
+			    vResult>0,
+			    CONCATENATE(
+			        "Vs  Ano anterior: " & FORMAT(vResult,"PERCENT"),"⬆️"),
+			    vResult<0,
+			    CONCATENATE(
+			        "Vs  Ano anterior: " & FORMAT(vResult,"PERCENT"),"⬇️")
+			)
+			
+			```
+		displayFolder: Formatação
+		lineageTag: 1c01c6ef-bf36-4bb9-ab81-a9bd0dea8a59
+
+	measure 'Trabalhadores Vs ano anterior' = ```
+			
+			VAR vTotalAtual = 
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Número de Trabalhadores])
+			)
+			VAR vTotalAnoAnterior = 
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Número de Trabalhadores]),
+			    SAMEPERIODLASTYEAR('dCalendario'[Data])
+			)
+			VAR vResult = 
+			DIVIDE(
+			    vTotalAtual - vTotalAnoAnterior,vTotalAtual
+			)
+			RETURN
+			SWITCH(True(),
+			    vResult>0,
+			    CONCATENATE(
+			        "Vs  Ano anterior: " & FORMAT(vResult,"PERCENT"),"⬆️"),
+			    vResult<0,
+			    CONCATENATE(
+			         "Vs  Ano anterior: " & FORMAT(vResult,"PERCENT"),"⬇️")
+			)
+			
+			```
+		displayFolder: Formatação
+		lineageTag: 79517b73-03a6-4e7b-b149-15c68ecb3cc2
+
+	measure 'Cor Ano Trabalhadores' = ```
+			
+			VAR vTotalAtual = 
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Número de Trabalhadores])
+			)
+			VAR vTotalAnoAnterior = 
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Número de Trabalhadores]),
+			    SAMEPERIODLASTYEAR('dCalendario'[Data])
+			)
+			VAR vResult = 
+			DIVIDE(
+			    vTotalAtual - vTotalAnoAnterior,vTotalAtual
+			)
+			RETURN
+			IF(vResult<0,"#ee1515","#9BC3DC")
+			```
+		displayFolder: Formatação
+		lineageTag: 8296d061-52b6-48b5-a43f-9b1fbed94c11
+
+	measure 'Cor Ano Matéria-Prima' = ```
+			
+			VAR vTotalAtual = 
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Matéria-Prima (toneladas)])
+			)
+			VAR vTotalAnoAnterior = 
+			CALCULATE(
+			    SUM(fProducaoIndustrial[Matéria-Prima (toneladas)]),
+			    SAMEPERIODLASTYEAR('dCalendario'[Data])
+			)
+			VAR vResult = 
+			DIVIDE(
+			    vTotalAtual - vTotalAnoAnterior,vTotalAtual
+			)
+			RETURN
+			IF(vResult<0,"#ee1515","#9BC3DC")
+			```
+		displayFolder: Formatação
+		lineageTag: 50ed1dfa-e104-48b0-a118-7d89bc87e278
+
+	partition Metricas = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Coluna 1"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_ResultType = Table
+
