@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
+  "name": "705f35edeb07bd97c286",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 19000,
+    "height": 57.719298245614041,
+    "width": 322.40175557056045,
+    "tabOrder": 19
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "EVOLUÇÃO INDUSTRIAL NO BRASIL",
+                    "textStyle": {
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Análise Detalhada para Decisões Estratégicas",
+                    "textStyle": {
+                      "color": "#075ead",
+                      "lineHeight": "0",
+                      "position": "relative",
+                      "verticalAlign": "baseline",
+                      "scriptType": "super",
+                      "top": "-0.25em"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Título do painel.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "69c63943908e14788a44"
+}

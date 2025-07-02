@@ -46,6 +46,17 @@
           "type": "BaseTheme"
         }
       ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "Dashboard_An_lise_background5875865900316817.png",
+          "path": "Dashboard_An_lise_background5875865900316817.png",
+          "type": "Image"
+        }
+      ]
     }
   ],
   "settings": {
