@@ -41,12 +41,12 @@ Essas perguntas orientaram o design do painel e das interações propostas no Po
 
 | Pasta         | Descrição |
 |---------------|-----------|
-| `data/`       | Contém os dados sintéticos gerados. |
-| `notebooks/`  | Notebook Jupyter para gerar os dados com Python. |
-| `pbix/`       | Arquivo Power BI com o painel interativo. |
+| `data/`       | [Contém os dados sintéticos gerados.](data/) |
+| `notebooks/`  | [Notebook Jupyter para gerar os dados com Python.](notebooks/) |
+| `pbix/`       | [Arquivo Power BI com o painel interativo.](pbix/) |
 | `mockups/`    | [Mockup da interface criado no Figma.](https://www.figma.com/community/file/1522211247084638581/dashboard-mockups-producao-industrial) |
-| `scripts/`    | Scripts em Python para limpeza e normalização. |
-| `images/`     | Imagens utilizadas no README ou dashboard. |
+| `scripts/`    | [Scripts em Python para limpeza e normalização.](scripts/) |
+| `images/`     | [Imagens utilizadas no README ou dashboard.](images/) |
 | `docs/`       | Documentação original do case e sua resposta. |
 
 ## Painel Publicado
@@ -61,9 +61,32 @@ Essas perguntas orientaram o design do painel e das interações propostas no Po
 4. **Construção do painel** no Power BI.
 5. **Publicação e compartilhamento** com a comunidade.
 
-## Esboço do Painel
+## Página de análises do Painel
 
 ![Mockup do Dashboard](mockups/Mockups_dashboard.png)
+
+## Análise Exploratória dos Dados Industriais
+
+O notebook [analise_setorial_producao_industrial.ipynb](notebooks/analise_setorial_producao_industrial.ipynb) realiza uma análise exploratória detalhada com base em dados sintéticos simulando a produção industrial brasileira entre 2013 e 2023. Ele responde a cinco perguntas-chave:
+
+Questões respondidas:
+Como a produção industrial evoluiu ao longo dos últimos 10 anos?
+- Crescimento geral com variações entre setores.
+
+Quais setores mais cresceram em volume e exportações?
+- Destaque para Agroindústria e Automotivo, com volume e valor exportado em alta.
+
+Houve impacto perceptível da pandemia?
+- Queda em 2020, com retomada clara nos anos seguintes, especialmente no setor Têxtil.
+
+Existe correlação entre uso de matéria-prima e produção?
+- Sim. Correlação forte em todos os setores (R² > 0.92).
+
+Há sazonalidade nos setores?
+- Sim. Meses como janeiro, novembro e dezembro concentram picos de produção.
+
+### Conclusão:
+Os dados sintéticos se mostraram consistentes e úteis para fins de visualização, com padrões realistas e insights replicáveis. Este notebook pode ser base para construção de dashboards em Power BI ou estudos analíticos mais avançados.
 
 ## Aprendizados
 
