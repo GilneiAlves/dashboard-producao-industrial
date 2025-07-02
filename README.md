@@ -42,7 +42,7 @@ Essas perguntas orientaram o design do painel e das interações propostas no Po
 | `data/`       | Contém os dados sintéticos gerados. |
 | `notebooks/`  | Notebook Jupyter para gerar os dados com Python. |
 | `pbix/`       | Arquivo Power BI com o painel interativo. |
-| `mockups/`    | Mockup da interface criado no Figma. |
+| `mockups/`    | [Mockup da interface criado no Figma.](https://www.figma.com/community/file/1522211247084638581/dashboard-mockups-producao-industrial) |
 | `scripts/`    | Scripts em Python para limpeza e normalização. |
 | `images/`     | Imagens utilizadas no README ou dashboard. |
 | `docs/`       | Documentação original do case e sua resposta. |
