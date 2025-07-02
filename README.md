@@ -59,9 +59,9 @@ Essas perguntas orientaram o design do painel e das interações propostas no Po
 4. **Construção do painel** no Power BI.
 5. **Publicação e compartilhamento** com a comunidade.
 
-## Captura do Painel
+## Esboço do Painel
 
-![Capa do Dashboard](images/capa_dashboard.png)
+![Mockup do Dashboard](mockups/Mockups_dashboard.png)
 
 ## Aprendizados
 
