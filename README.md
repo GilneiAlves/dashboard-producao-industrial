@@ -1,5 +1,7 @@
 # Produção Industrial no Brasil — Visualização Interativa
 
+[Acesse aqui o painel desse projeto](https://app.powerbi.com/view?r=eyJrIjoiMjliMmM5YzItMWM2OS00MTUzLThiMmQtZjAxOTE3N2NlY2JlIiwidCI6IjE0NTkzZjgwLTI2NDEtNDQzYy1hOTAzLWQzNGMyNzE1NDdjYSJ9)
+
 Neste projeto, exploramos dados relacionados à produção industrial de diversos setores no Brasil ao longo dos últimos 10 anos. A proposta é desenvolver um painel interativo que permita a análise de tendências, comparações entre setores e identificação de padrões relevantes para a tomada de decisão.
 
 A solução foi pensada para atender tanto públicos executivos quanto técnicos, permitindo diferentes níveis de exploração e profundidade analítica.
@@ -49,7 +51,7 @@ Essas perguntas orientaram o design do painel e das interações propostas no Po
 
 ## Painel Publicado
 
-🔗 [Veja o painel interativo no Power BI Service](https://app.powerbi.com/view)
+🔗 [Veja o painel interativo no Power BI Service](https://app.powerbi.com/view?r=eyJrIjoiMjliMmM5YzItMWM2OS00MTUzLThiMmQtZjAxOTE3N2NlY2JlIiwidCI6IjE0NTkzZjgwLTI2NDEtNDQzYy1hOTAzLWQzNGMyNzE1NDdjYSJ9)
 
 ## Fluxo de Desenvolvimento
 
