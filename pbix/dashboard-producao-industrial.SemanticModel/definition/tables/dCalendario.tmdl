@@ -1,17 +1,14 @@
 table dCalendario
 	lineageTag: 7899075d-46c8-4c43-94d7-f8d34a0e712e
+	dataCategory: Time
 
 	column Data
 		dataType: dateTime
-		formatString: Long Date
+		isKey
+		formatString: Short Date
 		lineageTag: c8535bc1-7c68-4e0e-ae8d-06207cc9ed71
 		summarizeBy: none
 		sourceColumn: Data
-
-		variation Variation
-			isDefault
-			relationship: 9cae4a57-91ad-45df-8be0-ed6ca3be8739
-			defaultHierarchy: LocalDateTable_30f17da0-e5c3-410e-afd0-2d4ef2aeed5c.'Hierarquia de datas'
 
 		annotation SummarizationSetBy = Automatic
 
