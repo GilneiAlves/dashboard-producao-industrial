@@ -7,7 +7,7 @@
     "z": 4000,
     "height": 71,
     "width": 66,
-    "tabOrder": 0
+    "tabOrder": -1
   },
   "visual": {
     "visualType": "image",
@@ -21,6 +21,21 @@
                   "PackageName": "RegisteredResources",
                   "PackageType": 1,
                   "ItemName": "Logo5541671227531845.png"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Logo'"
                 }
               }
             }
