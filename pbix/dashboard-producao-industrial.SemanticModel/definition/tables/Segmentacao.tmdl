@@ -1,0 +1,24 @@
+table Segmentacao
+	lineageTag: cc26bef2-0f5a-412f-95c6-81e67c27efc2
+
+	column Segmentador
+		dataType: string
+		lineageTag: ab6e3230-688e-4e45-9ae8-ab09bc921a70
+		summarizeBy: none
+		sourceColumn: Segmentador
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Segmentacao = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45Wcq0oyC8qSTy8/PDifKVYnWgl38SSwyuLMhN1A4oycxPBQgFF+SmlUBWxAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Segmentador = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Segmentador", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
