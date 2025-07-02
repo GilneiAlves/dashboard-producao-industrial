@@ -1,0 +1,39 @@
+createOrReplace
+
+	table Tabela_aux
+		isHidden
+		lineageTag: 8dd01b7b-fbad-4915-ba03-5cc24d6e85ba
+
+		column Setor
+			isHidden
+			lineageTag: ca629bf2-e872-4c66-b3d9-34429fa81042
+			summarizeBy: none
+			isNameInferred
+			sourceColumn: dSetores[Setor]
+			columnOrigin: dSetores.Setor
+
+			annotation SummarizationSetBy = Automatic
+
+		column Imagem
+			isHidden
+			lineageTag: 7f95e093-8f8f-4a20-8dec-25a255080adf
+			dataCategory: ImageUrl
+			summarizeBy: none
+			isNameInferred
+			sourceColumn: dSetores[Imagem]
+			columnOrigin: dSetores.Imagem
+
+			annotation SummarizationSetBy = Automatic
+
+		partition Tabela_aux = calculated
+			mode: import
+			source =
+					
+					SUMMARIZE(
+					    dSetores,
+					    dSetores[Setor],
+					    dSetores[Imagem]
+					)
+
+		annotation PBI_Id = e0947a68c02a4e50b239ac7ba12d7d7a
+

@@ -5,13 +5,13 @@
       "ordinal": 0,
       "scrollPosition": {
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "nodes": [
         {
           "location": {
             "x": 554,
-            "y": 39
+            "y": 260.21875
           },
           "nodeIndex": "dCalendario",
           "nodeLineageTag": "7899075d-46c8-4c43-94d7-f8d34a0e712e",
@@ -19,13 +19,13 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 0,
+          "zIndex": 1,
           "expandedHeight": 176
         },
         {
           "location": {
             "x": 0,
-            "y": 48
+            "y": 269.21875
           },
           "nodeIndex": "dSetores",
           "nodeLineageTag": "b2af7431-696a-402f-aed0-d36d1d7c006a",
@@ -33,13 +33,13 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 0,
+          "zIndex": 2,
           "expandedHeight": 152
         },
         {
           "location": {
             "x": 294,
-            "y": 329
+            "y": 550.21875
           },
           "nodeIndex": "fProducaoIndustrial",
           "nodeLineageTag": "02a8cf34-fbef-43d7-9304-de9a4837caff",
@@ -47,8 +47,49 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 0,
+          "zIndex": 3,
           "expandedHeight": 224
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 82.46875
+          },
+          "nodeIndex": "Metricas",
+          "nodeLineageTag": "a36b6f71-fbc6-425d-9933-fd158cb962ce",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 6,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "Tabela_aux",
+          "nodeLineageTag": "8dd01b7b-fbad-4915-ba03-5cc24d6e85ba",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 4,
+          "expandedHeight": 128
+        },
+        {
+          "location": {
+            "x": 1406,
+            "y": 248.53125
+          },
+          "nodeIndex": "Segmentacao",
+          "nodeLineageTag": "cc26bef2-0f5a-412f-95c6-81e67c27efc2",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 5
         }
       ],
       "name": "Todas as tabelas",

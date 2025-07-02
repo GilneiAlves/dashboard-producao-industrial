@@ -1,8 +1,3 @@
-relationship 9cae4a57-91ad-45df-8be0-ed6ca3be8739
-	joinOnDateBehavior: datePartOnly
-	fromColumn: dCalendario.Data
-	toColumn: LocalDateTable_30f17da0-e5c3-410e-afd0-2d4ef2aeed5c.Date
-
 relationship AutoDetected_1abedf34-f28d-4ddd-a5f0-d09720283c87
 	fromColumn: fProducaoIndustrial.id_Setor
 	toColumn: dSetores.id_Setor
