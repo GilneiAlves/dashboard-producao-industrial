@@ -63,7 +63,7 @@ Essas perguntas orientaram o design do painel e das interações propostas no Po
 
 ## Página de análises do Painel
 
-![Mockup do Dashboard](mockups/dashboard_mockups-producao-industrial.fig.png)
+![Mockup do Dashboard](images/Dashboard_Análise_background.png)
 
 ## Análise Exploratória dos Dados Industriais
 
