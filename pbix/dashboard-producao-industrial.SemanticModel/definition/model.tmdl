@@ -8,8 +8,6 @@ model Model
 
 annotation PBI_ProTooling = ["DevMode","TMDLView_Desktop"]
 
-annotation PBIDesktopVersion = 2.144.1155.0 (25.06)+46435b07013d2a234d7fd007083a9e70b8e79f1c
-
 annotation PBI_QueryOrder = ["dCalendario","dSetores","fProducaoIndustrial","Caminho_Arquivos","Metricas","Segmentacao"]
 
 annotation __PBI_TimeIntelligenceEnabled = 1

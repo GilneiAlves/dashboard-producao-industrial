@@ -19,6 +19,9 @@ table dCalendario
 		lineageTag: f95f9aff-9c69-41c9-b591-547742285bb7
 		summarizeBy: none
 		sourceColumn: Nome_Mes
+		sortByColumn: Mes_Num
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -46,9 +49,10 @@ table dCalendario
 				let
 				    Fonte = Csv.Document(File.Contents(Caminho_Arquivos&"dCalendario.csv"),[Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
-				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Data", type date}, {"Nome_Mes", type text}, {"Mes_Num", Int64.Type}, {"Ano", Int64.Type}})
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Data", type date}, {"Nome_Mes", type text}, {"Mes_Num", Int64.Type}, {"Ano", Int64.Type}}),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Tipo Alterado","Marã§o","Março",Replacer.ReplaceText,{"Nome_Mes"})
 				in
-				    #"Tipo Alterado"
+				    #"Valor Substituído"
 
 	annotation PBI_NavigationStepName = Navegação
 
