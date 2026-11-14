@@ -6,7 +6,7 @@ Neste projeto, exploramos dados relacionados à produção industrial de diverso
 
 A solução foi pensada para atender tanto públicos executivos quanto técnicos, permitindo diferentes níveis de exploração e profundidade analítica.
 
-O objetivo principal é fornecer uma ferramenta que facilite a **tomada de decisão estratégica**, com base em indicadores como:
+O objetivo principal é fornecer uma ferramenta que facilite a **tomada de decisão estratégica**, com base em indicadores como: 
 
 - Volume de produção
 - Número de trabalhadores
